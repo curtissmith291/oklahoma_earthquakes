@@ -2,6 +2,8 @@ import json
 import os
 import pandas as pd
 
+# This script parses the usgs GeoJSON files and returns a cleaned GeoJson and a reduced CSV file for Pandas
+
 # will export a geo_json for maps later
 features_geojson = []
 # will create list of dicts for import into pandas
