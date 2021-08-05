@@ -18,37 +18,41 @@ print("Running")
 
 for filename in os.listdir(path):
     file = os.path.join(path, filename)
+    # print(file)
 
+    try:
 
-    with open(file) as data_import:
-            data = json.loads(data_import.read())
+        with open(file) as data_import:
+                data = json.loads(data_import.read())
 
-    for item in data['features']:
-        temp_dict = {}
-        try:
-            if "Oklahoma" in item['properties']['place']:
-                count += 1
-                # Add dictionary to export GeoJson
-                features_geojson.append(item)
-                temp_dict = {
-                    "id": item['id'],
-                    "time": item['properties']['time'],
-                    "mag": item['properties']['mag'],
-                    "magType": item['properties']['magType'],
-                    "cdi": item['properties']['cdi'],
-                    "place": item['properties']['place'],
-                    "status": item['properties']['status'],
-                    "latitude": item['geometry']['coordinates'][1],
-                    "longitude": item['geometry']['coordinates'][0],
-                    "depth": item['geometry']['coordinates'][2],
-                }
-                # append selected items to 
-                pandas_import_list.append(temp_dict)
+        for item in data['features']:
+            temp_dict = {}
+            try:
+                if "Oklahoma" in item['properties']['place']:
+                    count += 1
+                    # Add dictionary to export GeoJson
+                    features_geojson.append(item)
+                    temp_dict = {
+                        "id": item['id'],
+                        "time": item['properties']['time'],
+                        "mag": item['properties']['mag'],
+                        "magType": item['properties']['magType'],
+                        "cdi": item['properties']['cdi'],
+                        "place": item['properties']['place'],
+                        "status": item['properties']['status'],
+                        "latitude": item['geometry']['coordinates'][1],
+                        "longitude": item['geometry']['coordinates'][0],
+                        "depth": item['geometry']['coordinates'][2],
+                    }
+                    # append selected items to 
+                    pandas_import_list.append(temp_dict)
 
-        except:
-            errors.append(item['id'])
-            # errors_properties.append[item['properties']]
+            except:
+                errors.append(item['id'])
+                # errors_properties.append[item['properties']]
 
+    except: 
+        continue
 # print(count)
 # print(errors)
 # print(len(errors))
